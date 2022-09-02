@@ -19,4 +19,11 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Le regole per creare le rotte per instradare tutte le richieste da parte di un utente autenticato
+Route::middleware('auth') // controlla che l'accesso sia consentito solo agli utenti loggati
+->namespace('Admin') // per evitare di scrivere 'Admin\HomeController@index' come secondo argomento di get()
+->name('admin.')    // va prima dell'argomento di name(), in questo caso 'name'. Tutti i name delle rotte inizieranno con 'admin.home'
+->prefix('admin') // va prima del primo argomento di get(), in questo caso '/'. Tutti gli url inizieranno con '/admin/'
+->group(function() { // raggruppa tutte le rotte per la parte di amministrazione del sito, in modo che abbiano applicate le modifiche dei metodi sopra 
+	Route::get('/', 'HomeController@index')->name('home');
+});
