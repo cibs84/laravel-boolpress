@@ -1979,11 +1979,13 @@ var staticRenderFns = [function () {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("a", {
+  return _c("div", [_c("div", {
+    staticClass: "container"
+  }, [_c("a", {
     attrs: {
       href: "/admin"
     }
-  }, [_vm._v("Admin privata")]), _vm._v(" "), _c("h1", [_vm._v("Stampato con Vue.js per test")])]);
+  }, [_vm._v("Admin privata")]), _vm._v(" "), _c("h1", [_vm._v("Stampato con Vue.js per test")])])]);
 }];
 render._withStripped = true;
 
