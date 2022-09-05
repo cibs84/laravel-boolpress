@@ -10993,3 +10993,11 @@ a.text-dark:focus {
   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgb(255, 255, 255) 50%);
 }
 
+.post-content {
+  font-size: 1.3rem;
+}
+
+label {
+  font-size: 1.5rem;
+}
+

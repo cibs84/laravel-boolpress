@@ -14,7 +14,7 @@
                         <div class="ms_module ms_fade">
                             <p class="card-text">{{ $post->content }}</p>
                         </div>
-                        {{-- <a href="{{ route('admin.posts.show') }}" class="btn btn-primary">Visualizza</a> --}}
+                        <a href="{{ route('admin.posts.show', ['post' => $post->id]) }}" class="btn btn-primary">Visualizza</a>
                     </div>
                 </div>
             </div>

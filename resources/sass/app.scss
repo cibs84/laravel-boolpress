@@ -8,4 +8,6 @@
 @import '~bootstrap/scss/bootstrap';
 
 // Partials
-@import './partials/index';
+@import './partials/_index';
+@import './partials/_show';
+@import './partials/_create';
