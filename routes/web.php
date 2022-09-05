@@ -27,4 +27,4 @@ Route::middleware('auth') // controlla che l'accesso sia consentito solo agli ut
 // Le regole per creare tutte le rotte relative alle richieste di un utente anonimo
 Route::get('{any?}', function () {
     return view('guest.home');
-});
+})->where('any', '.*');

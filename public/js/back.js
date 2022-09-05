@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-alert('ciao');
+// Javascript for Back-office
 
 /***/ }),
 

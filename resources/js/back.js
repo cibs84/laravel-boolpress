@@ -1,1 +1,1 @@
-alert('ciao');
+// Javascript for Back-office
