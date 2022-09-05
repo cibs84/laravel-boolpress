@@ -1,0 +1,22 @@
+.ms_module {
+    width: 250px;
+    margin: 0 0 1em 0;
+    overflow: hidden;
+  }
+  .ms_module p {
+    margin: 0;
+  }
+  .ms_fade {
+    position: relative;
+    height: 4.5em; /* exactly three lines */
+  }
+  .ms_fade:after {
+    content: "";
+    text-align: right;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 70%;
+    height: 1.2em;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+  }

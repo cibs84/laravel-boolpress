@@ -22,6 +22,7 @@ Route::middleware('auth') // controlla che l'accesso sia consentito solo agli ut
 ->prefix('admin') // va prima del primo argomento di get(), in questo caso '/'. Tutti gli url inizieranno con '/admin/'
 ->group(function() { // raggruppa tutte le rotte per la parte di amministrazione del sito, in modo che abbiano applicate le modifiche dei metodi sopra 
 	Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('posts', 'PostController');
 });
 
 // Le regole per creare tutte le rotte relative alle richieste di un utente anonimo
