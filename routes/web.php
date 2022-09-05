@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
 // Le regole per creare le rotte per instradare tutte le richieste da parte di un utente autenticato
@@ -26,4 +22,9 @@ Route::middleware('auth') // controlla che l'accesso sia consentito solo agli ut
 ->prefix('admin') // va prima del primo argomento di get(), in questo caso '/'. Tutti gli url inizieranno con '/admin/'
 ->group(function() { // raggruppa tutte le rotte per la parte di amministrazione del sito, in modo che abbiano applicate le modifiche dei metodi sopra 
 	Route::get('/', 'HomeController@index')->name('home');
+});
+
+// Le regole per creare tutte le rotte relative alle richieste di un utente anonimo
+Route::get('{any?}', function () {
+    return view('guest.home');
 });
