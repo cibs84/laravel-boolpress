@@ -10,7 +10,7 @@
 
     <h1>Lista Post</h1>
 
-    <div class="row row-cols-5">
+    <div class="row row-cols-auto">
         @foreach ($posts as $post)
             {{-- Single Post Card --}}
             <div class="col">
