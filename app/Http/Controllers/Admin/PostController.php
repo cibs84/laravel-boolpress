@@ -43,37 +43,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required|string|max:50000'
-        ]);
+        // $request->validate([
+        //     'title' => 'required|string|max:255',
+        //     'content' => 'required|string|max:50000'
+        // ]);
+
+        $request->validate($this->getValidationRules());
 
         $form_data = $request->all();
 
         $new_post = new Post();
         $new_post->fill($form_data);
 
-        // Assegno lo slug
-        $slug_to_save = Str::of($new_post->title)->lower()->slug('-');
-        $slug_original =  $slug_to_save;
-        // Verifica se lo slug già esiste nel db. Se non ce ne sono, il valore di $existing_same_slug sarà null
-        $existing_same_slug = Post::where('slug', '=', $slug_to_save)->first();
-        
+        $new_post->slug = $this->getUniqueSlug($new_post->title);
 
-        // Finchè trova uno slug già con quel nome e quindi $existing_slug sarà true perchè avrà un valore,
-        // continuerò ad appendere allo slug $slug_to_save -1, -2, ecc..
-        // SE lo slug risultante non sarà uguale a nessun altro nel db, interrompo il ciclo e memorizzo il dato nel db
-        $counter = 1;
-        while ($existing_same_slug) {
-            $slug_to_save = $slug_original . '-' . $counter;
-
-            // Verifica se lo slug già esiste nel db. Se non ce ne sono, il valore di $existing_same_slug sarà null
-            $existing_same_slug = Post::where('slug', '=', $slug_to_save)->first();
-            
-            $counter++;
-        }
-
-        $new_post->slug = $slug_to_save;
         $new_post->save();
         
         return redirect()->route('admin.posts.show', ['post' => $new_post->id, 'post_created' => true]);
@@ -133,5 +116,40 @@ class PostController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    // FUNCTIONS
+    // Contiene le regole di validazione per i form presenti in create() ed edit()
+    protected function getValidationRules() {
+        return [
+                'title' => 'required|string|max:255',
+                'content' => 'required|string|max:50000'
+        ];
+    }
+    
+    // Fornisce uno slug univoco fornendo il titolo del nuovo post inserito tramite form presente in create() ed edit()
+    protected function getUniqueSlug($new_title) {
+        // Assegno lo slug
+        $slug_to_save = Str::of($new_title)->lower()->slug('-');
+        $slug_original =  $slug_to_save;
+        // Verifica se lo slug già esiste nel db. Se non ce ne sono, il valore di $existing_same_slug sarà null
+        $existing_same_slug = Post::where('slug', '=', $slug_to_save)->first();
+        
+
+        // Finchè trova uno slug già con quel nome e quindi $existing_slug sarà true perchè avrà un valore,
+        // continuerò ad appendere allo slug $slug_to_save -1, -2, ecc..
+        // SE lo slug risultante non sarà uguale a nessun altro nel db, $existing_slug sarà null (quindi non più true) 
+        // e si interromperà il ciclo memorizzando il dato nel db
+        $counter = 1;
+        while ($existing_same_slug) {
+            $slug_to_save = $slug_original . '-' . $counter;
+
+            // Verifica se lo slug già esiste nel db. Se non ce ne sono, il valore di $existing_same_slug sarà null
+            $existing_same_slug = Post::where('slug', '=', $slug_to_save)->first();
+            
+            $counter++;
+        }
+
+        return $slug_to_save;
     }
 }
