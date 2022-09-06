@@ -11,6 +11,7 @@
             Post modificato con successo!
         </div>
     @endif
+
     {{-- Title --}}
     <h1>{{ $post->title }}</h1>
 
@@ -24,6 +25,13 @@
     {{-- Content --}}
     <p class="post-content">{{ $post->content }}</p>
 
-    {{-- Modifica --}}
+    {{-- Modify --}}
     <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Modifica</a>
+    {{-- Delete --}}
+    <form class="form-btn-elimina" action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post">
+        @csrf
+        @method('DELETE')
+
+        <input type="submit" value="Elimina" class="btn btn-danger" onClick="return confirm('Sei sicuro di voler eliminare il post?');">
+    </form>
 @endsection

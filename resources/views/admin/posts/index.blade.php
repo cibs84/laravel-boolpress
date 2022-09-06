@@ -1,6 +1,13 @@
 @extends('layouts.dashboard')
 
 @section('content')
+    {{-- Message to confirm deleted post --}}
+    @if ( $post_deleted )
+        <div class="alert alert-success" role="alert">
+            Post eliminato con successo!
+        </div>
+    @endif
+
     <h1>Lista Post</h1>
 
     <div class="row row-cols-5">

@@ -15,11 +15,18 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $posts = Post::all();
+
+        // Prendo $post_deleted che viene passato da destroy quando viene eliminato un post
+        // Assegno null come valore SE il parametro non viene passato e quindi non è settato, altrimenti visualizziamo un errore relativo alla variabile non definita
+        // Questo valore ci consentirà di stampare o meno nella index il messaggio di conferma dell'eliminazione del post
+        $post_deleted = isset($request['post_deleted']) ? $request['post_deleted'] : null;
+
         $data = [
-            'posts' => $posts
+            'posts' => $posts,
+            'post_deleted' => $post_deleted
         ];
 
         return view('admin.posts.index', $data);
@@ -142,7 +149,16 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post_to_delete = Post::findOrFail($id);
+        $post_to_delete->delete();
+
+        $post_deleted = true;
+
+        $data = [
+            'post_deleted' => $post_deleted
+        ];
+
+        return redirect()->route('admin.posts.index', $data);
     }
 
     // FUNCTIONS
