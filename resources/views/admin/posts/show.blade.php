@@ -6,10 +6,10 @@
         <div class="alert alert-success" role="alert">
             Post inserito con successo!
         </div>
-        {{-- @elseif ( $post_updated )
+    @elseif ( $post_updated )
         <div class="alert alert-success" role="alert">
             Post modificato con successo!
-        </div> --}}
+        </div>
     @endif
     {{-- Title --}}
     <h1>{{ $post->title }}</h1>
@@ -23,4 +23,7 @@
 
     {{-- Content --}}
     <p class="post-content">{{ $post->content }}</p>
+
+    {{-- Modifica --}}
+    <a href="{{ route('admin.posts.edit', ['post' => $post->id]) }}" class="btn btn-primary">Modifica</a>
 @endsection

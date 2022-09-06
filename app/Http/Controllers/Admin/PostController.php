@@ -43,11 +43,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'title' => 'required|string|max:255',
-        //     'content' => 'required|string|max:50000'
-        // ]);
-
         $request->validate($this->getValidationRules());
 
         $form_data = $request->all();
@@ -74,13 +69,17 @@ class PostController extends Controller
 
         // Prendo i parametri che vengono passati da store quando viene creato un nuovo fumetto e da update quando viene modificato.
         // Assegno null come valore SE il parametro non viene passato e quindi non è settato, altrimenti visualizziamo un errore relativo alla/e variabile/i non definite
+        // Questo valore ci consentirà di stampare o meno nella show il messaggio di avvenuta operazione (creazione/aggiornamento post)
         $request_data = $request->all();
         $post_created = isset($request_data['post_created']) ? $request_data['post_created'] : null;
+        $post_updated = isset($request_data['post_updated']) ? $request_data['post_updated'] : null;
 
         $data = [
             'post' => $post,
-            'post_created' => $post_created
+            'post_created' => $post_created,
+            'post_updated' => $post_updated
         ];
+
         return view('admin.posts.show', $data);
     }
 
@@ -92,7 +91,13 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        $data = [
+            'post' => $post
+        ];
+
+        return view('admin.posts.edit', $data);
     }
 
     /**
@@ -104,7 +109,29 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate($this->getValidationRules());
+        $form_data = $request->all();
+        $post_to_update = Post::findOrFail($id);
+        // SE il titolo inserito nel form è diverso da quello presente nel post da modificare
+        // ALLORA assegniamo un nuovo slug che creiamo con la funzione getUniqueSlug() a cui passiamo il titolo modificato
+        // ALTRIMENTI assegniamo lo slug già presente dato che il titolo non è stato modificato
+        if ($form_data['title'] !== $post_to_update->title) {
+            $form_data['slug'] = $this->getUniqueSlug($form_data['title']);
+        } else {
+            $form_data['slug'] = $post_to_update->slug;
+        }
+        // Aggiorniamo il post con i dati del form
+        $post_to_update->update($form_data);
+
+        // Variabile di controllo per visualizzare nella show il messaggio di conferma dell'aggiornamento post
+        $post_updated = true;
+
+        $data = [
+            'post_updated' => $post_updated,
+            'post' => $post_to_update->id
+        ];
+
+        return redirect()->route('admin.posts.show', $data);
     }
 
     /**
