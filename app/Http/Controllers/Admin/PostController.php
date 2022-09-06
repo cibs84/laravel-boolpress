@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Post;
 use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 class PostController extends Controller
 {
@@ -74,6 +75,18 @@ class PostController extends Controller
     {
         $post = Post::findOrFail($id);
 
+        // Creo il messaggio relativo a quanti giorni fa è stato creato/aggiornato il post
+        $now = Carbon::now();
+        $diff_days = $post->created_at->diffInDays($now);
+        if ($diff_days == 0) {
+            $how_long_ago = 'Oggi';
+        } else if ($diff_days == 1) {
+            $how_long_ago = 'Ieri';
+        } else {
+            $how_long_ago = $diff_days . 'giorni fa';
+        }
+        
+
         // Prendo i parametri che vengono passati da store quando viene creato un nuovo fumetto e da update quando viene modificato.
         // Assegno null come valore SE il parametro non viene passato e quindi non è settato, altrimenti visualizziamo un errore relativo alla/e variabile/i non definite
         // Questo valore ci consentirà di stampare o meno nella show il messaggio di avvenuta operazione (creazione/aggiornamento post)
@@ -84,7 +97,8 @@ class PostController extends Controller
         $data = [
             'post' => $post,
             'post_created' => $post_created,
-            'post_updated' => $post_updated
+            'post_updated' => $post_updated,
+            'how_long_ago' => $how_long_ago
         ];
 
         return view('admin.posts.show', $data);

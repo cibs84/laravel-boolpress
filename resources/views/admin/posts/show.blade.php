@@ -17,8 +17,8 @@
 
     {{-- Meta Data --}}
     <div class="meta-data my-4">
-        <h5><strong>Creato il:</strong> {{ $post->created_at }}</h5>
-        <h5><strong>Aggiornato il:</strong> {{ $post->updated_at }}</h5>
+        <h5><strong>Creato il:</strong> {{ $post->created_at->format('l, j F Y') }} - {{ $how_long_ago }}</h5>
+        <h5><strong>Aggiornato il:</strong> {{ $post->updated_at->format('l, j F Y') }} - {{ $how_long_ago }}</h5>
         <h5><strong>Slug:</strong> {{ $post->slug }}</h5>
     </div>
 
