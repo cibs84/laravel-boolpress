@@ -16,6 +16,18 @@
                 @enderror
             </div>
             
+            {{-- Categories --}}
+            <div class="mb-3">
+                <label for="category_id">Categoria:</label>
+                <select class="form-select form-select-lg" id="category_id" name="category_id">
+                    <option value=''>Nessuna</option>
+
+                    @foreach ($categories as $category)
+                        <option value="{{$category->id}}" {{ old('category_id', $post->category->id) == $category->id ? 'selected' : '' }}>{{$category->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+
             {{-- Content --}}
             <div class="mb-3">
                 <label for="content" class="form-label">Testo</label>

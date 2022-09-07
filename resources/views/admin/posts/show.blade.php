@@ -20,6 +20,7 @@
         <h5><strong>Creato il:</strong> {{ $post->created_at->format('l, j F Y') }} - {{ $how_long_ago }}</h5>
         <h5><strong>Aggiornato il:</strong> {{ $post->updated_at->format('l, j F Y') }} - {{ $how_long_ago }}</h5>
         <h5><strong>Slug:</strong> {{ $post->slug }}</h5>
+        <h5><strong>Categoria:</strong> {{ $post->category ? $post->category->name : 'Nessuna' }}</h5>
     </div>
 
     {{-- Content --}}
