@@ -78,6 +78,7 @@ class PostController extends Controller
         // Creo il messaggio relativo a quanti giorni fa è stato creato/aggiornato il post
         $now = Carbon::now();
         $diff_days = $post->created_at->diffInDays($now);
+   
         if ($diff_days == 0) {
             $how_long_ago = 'Oggi';
         } else if ($diff_days == 1) {
