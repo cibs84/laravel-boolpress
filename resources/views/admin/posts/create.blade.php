@@ -16,8 +16,8 @@
             </div>
 
             {{-- Categories --}}
-            <div class="mb-3">
-                <label for="category_id">Categoria:</label>
+            <div class="mb-4">
+                <label for="category_id">Categoria</label>
                 <select class="form-select" id="category_id" name="category_id">
                     <option value=''>Nessuna</option>
                     
@@ -27,17 +27,29 @@
                 </select>
             </div>
             
+            {{-- Tags --}}
+            <div class="mb-4">
+                <h3>Tags</h3>
+                @foreach ($tags as $tag)
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                    <label class="form-check-label" for="inlineCheckbox1">{{ old('tag', $tag->name) }}</label>
+                </div>
+                @endforeach
+            </div>
+            
             {{-- Content --}}
             <div class="mb-3">
                 <label for="content" class="form-label">Testo</label>
                 <textarea class="form-control" id="content" cols="30" rows="10" name="content">{{ old('content') }}</textarea>
                 @error('content')
-                    <div class="alert alert-danger form-text">{{ $message }}</div>
+                <div class="alert alert-danger form-text">{{ $message }}</div>
                 @enderror
             </div>
-
+            
             {{-- Submit --}}
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
+        {{dd(old())}}
     </div>
 @endsection

@@ -18,7 +18,7 @@ class AddCategoryIdToPostsTable extends Migration
             // e la rendo nullable in quanto i post possono non avere una categoria
             $table->unsignedBigInteger('category_id')->nullable()->after('slug');
 
-            // Creo la relazione con foreign key tra category_key della tabella posts e id della tabella categories
+            // Creo la relazione con foreign key tra category_id della tabella posts e id della tabella categories
             $table->foreign('category_id')
             ->references('id')
             ->on('categories')
