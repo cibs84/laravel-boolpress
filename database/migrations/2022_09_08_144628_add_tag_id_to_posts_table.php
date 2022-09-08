@@ -32,6 +32,8 @@ class AddTagIdToPostsTable extends Migration
     public function down()
     {
         Schema::table('posts', function (Blueprint $table) {
+            // Elimino la foreign key
+            $table->dropForeign('posts_tag_id_foreign');
             // Elimino la colonna tag_id
             $table->dropColumn('tag_id');
         });
