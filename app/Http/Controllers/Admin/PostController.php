@@ -201,7 +201,7 @@ class PostController extends Controller
     // Fornisce uno slug univoco fornendo il titolo del nuovo post inserito tramite form presente in create() ed edit()
     protected function getUniqueSlug($new_title) {
         // Assegno lo slug
-        $slug_to_save = Str::of($new_title)->lower()->slug('-');
+        $slug_to_save = Str::slug($new_title, '-');
         $slug_original =  $slug_to_save;
         // Verifica se lo slug già esiste nel db. Se non ce ne sono, il valore di $existing_same_slug sarà null
         $existing_same_slug = Post::where('slug', '=', $slug_to_save)->first();
