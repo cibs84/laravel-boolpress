@@ -26,18 +26,28 @@
                     @endforeach
                 </select>
             </div>
-            
+        
             {{-- Tags --}}
             <div class="mb-4">
                 <h3>Tags</h3>
                 @foreach ($tags as $tag)
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-                    <label class="form-check-label" for="inlineCheckbox1">{{ old('tag', $tag->name) }}</label>
+                    <input 
+                        class="form-check-input" 
+                        type="checkbox" 
+                        id="tag-{{ $tag->id }}" 
+                        value="{{ $tag->id }}" 
+                        name="tags[]"
+                        @if (old('tags'))
+                            {{ in_array($tag->id, old('tags')) ? 'checked' : '' }}
+                        @endif
+                        >
+                        
+                    <label class="form-check-label" for="tag-{{ $tag->id }}">{{ old('tag', $tag->name) }}</label>
                 </div>
                 @endforeach
             </div>
-            
+
             {{-- Content --}}
             <div class="mb-3">
                 <label for="content" class="form-label">Testo</label>
@@ -50,6 +60,6 @@
             {{-- Submit --}}
             <button type="submit" class="btn btn-primary">Invia</button>
         </form>
-        {{dd(old())}}
+
     </div>
 @endsection

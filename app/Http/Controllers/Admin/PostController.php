@@ -69,9 +69,14 @@ class PostController extends Controller
         $new_post->fill($form_data);
 
         $new_post->slug = $this->getUniqueSlug($new_post->title);
-
-        $new_post->save();
         
+        $new_post->save();
+
+        // Dopo aver salvato il nuovo post, gli associo i tag
+        if (isset($form_data['tags'])) {
+            $new_post->tags()->sync($form_data['tags']);
+        }
+
         return redirect()->route('admin.posts.show', ['post' => $new_post->id, 'post_created' => true]);
     }
 
@@ -97,7 +102,6 @@ class PostController extends Controller
             $how_long_ago = $diff_days . 'giorni fa';
         }
         
-
         // Prendo i parametri che vengono passati da store quando viene creato un nuovo fumetto e da update quando viene modificato.
         // Assegno null come valore SE il parametro non viene passato e quindi non è settato, altrimenti visualizziamo un errore relativo alla/e variabile/i non definite
         // Questo valore ci consentirà di stampare o meno nella show il messaggio di avvenuta operazione (creazione/aggiornamento post)
@@ -158,6 +162,13 @@ class PostController extends Controller
         }
         // Aggiorniamo il post con i dati del form
         $post_to_update->update($form_data);
+
+        // Dopo aver aggiornato il post, aggiorniamo anche i tag
+        if (isset($form_data['tags'])) {
+            $post_to_update->tags()->sync($form_data['tags']);
+        } else {
+            $post_to_update->tags()->sync($form_data[]);
+        }
 
         // Variabile di controllo per visualizzare nella show il messaggio di conferma dell'aggiornamento post
         $post_updated = true;
