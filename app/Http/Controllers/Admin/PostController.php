@@ -158,7 +158,7 @@ class PostController extends Controller
         if ($form_data['title'] !== $post_to_update->title) {
             $form_data['slug'] = $this->getUniqueSlug($form_data['title']);
         } else {
-            $form_data['slug'] = $post_to_update->slug;
+            $form_data['slug'] = $post_to_update->slug; 
         }
         // Aggiorniamo il post con i dati del form
         $post_to_update->update($form_data);
@@ -167,7 +167,7 @@ class PostController extends Controller
         if (isset($form_data['tags'])) {
             $post_to_update->tags()->sync($form_data['tags']);
         } else {
-            $post_to_update->tags()->sync($form_data[]);
+            $post_to_update->tags()->sync([]); // Rimuove tutti i tag precedentemente salvati
         }
 
         // Variabile di controllo per visualizzare nella show il messaggio di conferma dell'aggiornamento post
@@ -190,6 +190,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post_to_delete = Post::findOrFail($id);
+        $post_to_delete->tags()->sync([]);
         $post_to_delete->delete();
 
         $post_deleted = true;
