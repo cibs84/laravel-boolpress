@@ -29,6 +29,7 @@ export default {
             if (text.length > 75) {
                 return text.slice(0, 75) + '...';
             }
+            return text;
         },
         getPosts() {
             axios.get('/api/posts', {params: {

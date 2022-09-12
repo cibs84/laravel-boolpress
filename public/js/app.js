@@ -1920,6 +1920,8 @@ __webpack_require__.r(__webpack_exports__);
       if (text.length > 75) {
         return text.slice(0, 75) + '...';
       }
+
+      return text;
     },
     getPosts: function getPosts() {
       var _this = this;
