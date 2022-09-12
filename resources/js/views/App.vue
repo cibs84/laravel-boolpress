@@ -2,7 +2,6 @@
     <div>
         <div class="container">
             <a href="/admin">Admin privata</a>
-            <h1>Tutti i post</h1>
         </div>
 
         <main>
