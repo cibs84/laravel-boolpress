@@ -20,7 +20,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::all();
+        $posts = Post::paginate(5);
 
         // Prendo $post_deleted che viene passato da destroy quando viene eliminato un post
         // Assegno null come valore SE il parametro non viene passato e quindi non è settato, altrimenti visualizziamo un errore relativo alla variabile non definita

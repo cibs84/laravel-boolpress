@@ -7,7 +7,14 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-// Partials
+// Common
+@import 'common';
+
+// Partials Admin
 @import './partials/_index';
 @import './partials/_show';
 @import './partials/_create';
+
+// Partials/categories
+@import './partials/categories/_index';
+@import './partials/categories/_create';

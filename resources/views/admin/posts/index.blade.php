@@ -27,4 +27,9 @@
             </div>
         @endforeach
     </div>
+    
+    {{-- Pagination --}}
+    <div>
+        {{ $posts->links() }}
+    </div>
 @endsection
