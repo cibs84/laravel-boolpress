@@ -2058,7 +2058,7 @@ __webpack_require__.r(__webpack_exports__);
         data: {
           slug: this.$route.params.slug
         }
-      });
+      }).then(function (response) {});
     }
   },
   mounted: function mounted() {
