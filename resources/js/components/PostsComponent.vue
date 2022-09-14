@@ -3,16 +3,8 @@
         <h1>{{pageTitle}}</h1>
         <div class="row row-cols-3">
             <!-- LOOP - Post col -->
-            <div class="col mt-4" v-for="post in posts" :key="post.id">
-                <div class="card">
-                    <!-- <img src="..." class="card-img-top" alt="..."> -->
-                    <div class="card-body">
-                        <h5 class="card-title">{{post.title}}</h5>
-                        <p class="card-text">{{truncateText(post.content)}}</p>
-                        <a :href="`/blog/${post.slug}`" class="btn btn-primary">Visualizza</a>
-                        <router-link class="btn btn-primary" :to="{name:'single-post', params:{slug: post.slug} }">Visualizza</router-link>
-                    </div>
-                </div>
+            <div class="col mt-4" v-for="thisPost in posts" :key="thisPost.id">
+                <PostDetails :post="thisPost"/>
             </div>
         </div>
 
@@ -38,8 +30,13 @@
 </template>
 
 <script>
+import PostDetails from './PostDetails.vue';
+
 export default {
     name: 'PostsComponent',
+    components: {
+        PostDetails
+    },
     data() {
         return {
             pageTitle: 'Tutti i post',
@@ -49,12 +46,6 @@ export default {
         }
     },
     methods: {
-        truncateText(text) {
-            if (text.length > 75) {
-                return text.slice(0, 75) + '...';
-            }
-            return text;
-        },
         getPosts(pageNumber) {
             axios.get('/api/posts', {
                 params: {
