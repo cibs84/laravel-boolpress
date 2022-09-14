@@ -1,9 +1,7 @@
 <template>
     <header>
         <nav class="container">
-            <router-link to="/">Home</router-link>
-            <router-link to="/about">About</router-link>
-            <router-link to="/blog">Blog</router-link>
+            <router-link :to="{name: menuLink.routeName}" v-for="(menuLink, index) in menuLinks" :key="index">{{menuLink.linkText}}</router-link>
             <a href="/admin">Admin privata</a>
         </nav>
     </header>
@@ -11,7 +9,25 @@
 
 <script>
 export default {
-    name: 'HeaderComponent'
+    name: 'HeaderComponent',
+    data() {
+        return {
+            menuLinks: [
+                {
+                    routeName: 'home',
+                    linkText: 'Home'
+                },
+                {
+                    routeName: 'about',
+                    linkText: 'About'
+                },
+                {
+                    routeName: 'blog',
+                    linkText: 'Blog'
+                }
+            ]
+        }
+    }
 }
 </script>
 

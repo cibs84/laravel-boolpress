@@ -8,12 +8,12 @@ class Post extends Model
 {
     protected $fillable = ['title', 'content', 'slug', 'category_id', 'tag_id'];
 
-    // Relationship Post / Category
+    // Relationship One to Many between Category and Post models
     public function category() {
         return $this->belongsTo('App\Category');
     }
 
-    // Relationship Post / Tag
+    // Relationship Many to Many between Post and Tag models
     public function tags() {
         return $this->belongsToMany('App\Tag');
     }
