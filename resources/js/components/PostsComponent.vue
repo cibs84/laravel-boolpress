@@ -9,29 +9,31 @@
                     <div class="card-body">
                         <h5 class="card-title">{{post.title}}</h5>
                         <p class="card-text">{{truncateText(post.content)}}</p>
-                        <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+                        <a :href="`/blog/${post.slug}`" class="btn btn-primary">Visualizza</a>
+                        <router-link class="btn btn-primary" :to="{name:'single-post', params:{slug: post.slug} }">Visualizza</router-link>
                     </div>
                 </div>
             </div>
         </div>
-            <!-- Pagination -->
-            <nav class="mt-4" aria-label="Page navigation">
-                <ul class="pagination justify-content-center">
-                    <!-- Previous Button -->
-                    <li class="page-item" :class="{'disabled': currentPage == 1}">
-                        <a class="page-link" href="#" @click.prevent="getPosts(currentPage - 1)" tabindex="-1" aria-disabled="true">Previous</a>
-                    </li>
 
-                    <li v-for="(pageNumber, index) in lastPage" :key="index" class="page-item" :class="{'active': pageNumber === currentPage}">
-                        <a class="page-link" href="#" @click.prevent="getPosts(pageNumber)">{{pageNumber}}</a>
-                    </li>
+        <!-- Pagination -->
+        <nav class="mt-4" aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <!-- Previous Button -->
+                <li class="page-item" :class="{'disabled': currentPage == 1}">
+                    <a class="page-link" href="#" @click.prevent="getPosts(currentPage - 1)" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
 
-                    <!-- Next Button -->
-                    <li class="page-item" :class="{'disabled': currentPage == lastPage}">
-                        <a class="page-link" href="#" @click.prevent="getPosts(currentPage + 1)">Next</a>
-                    </li>
-                </ul>
-            </nav>
+                <li v-for="(pageNumber, index) in lastPage" :key="index" class="page-item" :class="{'active': pageNumber === currentPage}">
+                    <a class="page-link" href="#" @click.prevent="getPosts(pageNumber)">{{pageNumber}}</a>
+                </li>
+
+                <!-- Next Button -->
+                <li class="page-item" :class="{'disabled': currentPage == lastPage}">
+                    <a class="page-link" href="#" @click.prevent="getPosts(currentPage + 1)">Next</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
