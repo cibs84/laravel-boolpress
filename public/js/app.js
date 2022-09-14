@@ -1986,8 +1986,13 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _components_PostsComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/PostsComponent.vue */ "./resources/js/components/PostsComponent.vue");
+
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'BlogPage'
+  name: 'BlogPage',
+  components: {
+    PostsComponent: _components_PostsComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  }
 });
 
 /***/ }),
@@ -2247,17 +2252,12 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v("BlogPage")])]);
-}];
+  }, [_c("PostsComponent")], 1);
+};
+
+var staticRenderFns = [];
 render._withStripped = true;
 
 

@@ -1,11 +1,16 @@
 <template>
     <div class="container">
-        <h2>BlogPage</h2>
+        <PostsComponent />
     </div>
 </template>
 
 <script>
+import PostsComponent from "../components/PostsComponent.vue";
+
 export default {
-    name: 'BlogPage'
+    name: 'BlogPage',
+    components: {
+        PostsComponent
+    }
 }
 </script>
