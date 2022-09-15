@@ -47,7 +47,13 @@ export default {
             axios
                 .get('/api/posts/' + this.$route.params.slug)
                 .then(response => {
-                    this.post = response.data.results;
+                    // Se abbiamo trovato un post ok popoliamo this.post e lo stampiamo
+                    if(response.data.success) {
+                        this.post = response.data.results;
+                    } else {
+                        // Altrimeneti se il post non è stato trovato, reindirizziamo l'utente a 404
+                        this.$router.push({name:'Page404'});
+                    }
                 })
         }
     },

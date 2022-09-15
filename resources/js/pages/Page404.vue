@@ -1,6 +1,10 @@
 <template>
     <div class="container">
-        <h2>404 - Nessuna pagina trovata</h2>
+        <h1>Contenuto non trovato</h1>
+        <h5>
+            Visita il nostro 
+            <router-link :to="{name:'blog'}">Blog</router-link>
+        </h5>
     </div>
 </template>
 

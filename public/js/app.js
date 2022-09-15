@@ -2087,7 +2087,15 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios.get('/api/posts/' + this.$route.params.slug).then(function (response) {
-        _this.post = response.data.results;
+        // Se abbiamo trovato un post ok popoliamo this.post e lo stampiamo
+        if (response.data.success) {
+          _this.post = response.data.results;
+        } else {
+          // Altrimeneti se il post non è stato trovato, reindirizziamo l'utente a 404
+          _this.$router.push({
+            name: 'Page404'
+          });
+        }
       });
     }
   },
@@ -2150,7 +2158,7 @@ var render = function render() {
           name: menuLink.routeName
         }
       }
-    }, [_vm._v(_vm._s(menuLink.linkText))]);
+    }, [_vm._v("\n            " + _vm._s(menuLink.linkText) + "\n        ")]);
   }), _vm._v(" "), _c("a", {
     attrs: {
       href: "/admin"
@@ -2197,7 +2205,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("Visualizza")])], 1)]);
+  }, [_vm._v("\n            Visualizza\n        ")])], 1)]);
 };
 
 var staticRenderFns = [];
@@ -2406,17 +2414,18 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _vm._m(0);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
   return _c("div", {
     staticClass: "container"
-  }, [_c("h2", [_vm._v("404 - Nessuna pagina trovata")])]);
-}];
+  }, [_c("h1", [_vm._v("Contenuto non trovato")]), _vm._v(" "), _c("h5", [_vm._v("\n        Visita il nostro \n        "), _c("router-link", {
+    attrs: {
+      to: {
+        name: "blog"
+      }
+    }
+  }, [_vm._v("Blog")])], 1)]);
+};
+
+var staticRenderFns = [];
 render._withStripped = true;
 
 

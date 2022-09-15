@@ -1,7 +1,10 @@
 <template>
     <header>
         <nav class="container">
-            <router-link :to="{name: menuLink.routeName}" v-for="(menuLink, index) in menuLinks" :key="index">{{menuLink.linkText}}</router-link>
+            <router-link :to="{name: menuLink.routeName}" 
+            v-for="(menuLink, index) in menuLinks" :key="index">
+                {{menuLink.linkText}}
+            </router-link>
             <a href="/admin">Admin privata</a>
         </nav>
     </header>
