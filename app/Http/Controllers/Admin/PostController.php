@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use App\Category;
 use App\Post;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -62,8 +63,18 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate($this->getValidationRules());
-
+        
         $form_data = $request->all();
+        
+        if (isset($form_data['post-cover'])) {
+            // Carica il file nella cartella 'uploads' che crea in storage/app/public
+            // e torna il path dell'immagine che andrà salvato nel db
+            $img_path = Storage::put('uploads', $form_data['post-cover']);
+            $form_data['cover'] = $img_path;
+        }
+
+        // In form_data, assegna alla chiave che crea con lo stesso nome della colonna presente in 'posts',
+        // il path dell'immagine caricata tramite il form e che verrà poi assegnato tramite fill
 
         $new_post = new Post();
         $new_post->fill($form_data);
@@ -151,6 +162,14 @@ class PostController extends Controller
     {
         $request->validate($this->getValidationRules());
         $form_data = $request->all();
+
+        if (isset($form_data['post-cover'])) {
+            // Carica il file nella cartella 'uploads' presente in storage/app/public
+            // e torna il path dell'immagine che andrà salvato nel db
+            $img_path = Storage::put('uploads', $form_data['post-cover']);
+            $form_data['cover'] = $img_path;
+        }
+
         $post_to_update = Post::findOrFail($id);
         // SE il titolo inserito nel form è diverso da quello presente nel post da modificare
         // ALLORA assegniamo un nuovo slug che creiamo con la funzione getUniqueSlug() a cui passiamo il titolo modificato
@@ -202,12 +221,19 @@ class PostController extends Controller
         return redirect()->route('admin.posts.index', $data);
     }
 
-    // FUNCTIONS
-    // Contiene le regole di validazione per i form presenti in create() ed edit()
+
+    // *******************
+    //      FUNCTIONS
+    // *******************
+    
+
+    // E' richiamata da store() e update() 
+    // e contiene le regole di validazione per i form presenti in create() ed edit()
     protected function getValidationRules() {
         return [
                 'title' => 'required|string|max:255',
                 'content' => 'required|string|max:50000',
+                'post-cover' => 'image|mimes:jpeg,jpg,png,bmp,gif,svg,webp|max:1024|nullable',
                 // controlla che ci sia valore null oppure che esista una categoria 
                 // nel campo id della tabella categories evitando che dall'inspector si possano iniare valori
                 // non presenti nella colonna id del database

@@ -33,6 +33,11 @@
         </h5>
     </div>
 
+    {{-- Image --}}
+    @if ($post->cover)
+        <img src="{{ asset('storage/' . $post->cover) }}" class="w-50" alt="">  
+    @endif
+
     {{-- Content --}}
     <p class="post-content">{{ $post->content }}</p>
 

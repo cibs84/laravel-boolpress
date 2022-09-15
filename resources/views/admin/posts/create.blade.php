@@ -3,7 +3,7 @@
 @section('content')
     <h1 class="mb-4">Crea un nuovo Post</h1>
 
-        <form action="{{ route('admin.posts.store') }}" method="post">
+        <form action="{{ route('admin.posts.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             
             {{-- Title --}}
@@ -46,6 +46,15 @@
                     <label class="form-check-label" for="tag-{{ $tag->id }}">{{ old('tag', $tag->name) }}</label>
                 </div>
                 @endforeach
+            </div>
+
+            {{-- Image --}}
+            <div class="mb-4">
+                <label for="post-cover" class="form-label">Immagine</label>
+                <input class="form-control" type="file" name="post-cover" id="post-cover">
+                @error('post-cover')
+                    <div class="alert alert-danger form-text">{{ $message }}</div>
+                @enderror
             </div>
 
             {{-- Content --}}

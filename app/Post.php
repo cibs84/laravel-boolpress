@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['title', 'content', 'slug', 'category_id', 'tag_id'];
+    protected $fillable = ['title', 'content', 'slug', 'cover', 'category_id', 'tag_id'];
 
     // Relationship One to Many between Category and Post models
     public function category() {
