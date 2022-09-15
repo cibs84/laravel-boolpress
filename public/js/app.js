@@ -2189,7 +2189,13 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "card"
-  }, [_c("div", {
+  }, [_vm.post.cover ? _c("img", {
+    staticClass: "card-img-top",
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  }) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("h5", {
     staticClass: "card-title"
@@ -2457,7 +2463,13 @@ var render = function render() {
     }, [_vm._v("\n                    " + _vm._s(tag.name) + "\n                ")]);
   })], 2)]) : _c("div", [_c("h1", [_vm._v(_vm._s(_vm.post.title))])]), _vm._v(" "), _c("div", {
     staticClass: "meta-data my-4"
-  }, [_c("h5", [_c("strong", [_vm._v("Creato il: ")]), _vm._v(_vm._s(_vm.post.created_at))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Aggiornato il: ")]), _vm._v(_vm._s(_vm.post.updated_at))]), _vm._v(" "), _vm.post.category ? _c("h5", [_c("strong", [_vm._v("Categoria: ")]), _vm._v(_vm._s(_vm.post.category.name))]) : _c("h5", [_c("strong", [_vm._v("Categoria: ")]), _vm._v("Nessuna")])]), _vm._v(" "), _c("p", {
+  }, [_c("h5", [_c("strong", [_vm._v("Creato il: ")]), _vm._v(_vm._s(_vm.post.created_at))]), _vm._v(" "), _c("h5", [_c("strong", [_vm._v("Aggiornato il: ")]), _vm._v(_vm._s(_vm.post.updated_at))]), _vm._v(" "), _vm.post.category ? _c("h5", [_c("strong", [_vm._v("Categoria: ")]), _vm._v(_vm._s(_vm.post.category.name))]) : _c("h5", [_c("strong", [_vm._v("Categoria: ")]), _vm._v("Nessuna")])]), _vm._v(" "), _vm.post.cover ? _c("img", {
+    staticClass: "card-img-top mb-4",
+    attrs: {
+      src: _vm.post.cover,
+      alt: _vm.post.title
+    }
+  }) : _vm._e(), _vm._v(" "), _c("p", {
     staticClass: "post-content"
   }, [_vm._v(_vm._s(_vm.post.content))])]) : _c("div", [_vm._m(0)])]);
 };

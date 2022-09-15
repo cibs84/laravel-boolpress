@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <!-- <img src="..." class="card-img-top" alt="..."> -->
+        <img v-if="post.cover" :src="post.cover" class="card-img-top" :alt="post.title">
         <div class="card-body">
             <h5 class="card-title">{{post.title}}</h5>
             <p class="card-text">{{truncateText(post.content)}}</p>

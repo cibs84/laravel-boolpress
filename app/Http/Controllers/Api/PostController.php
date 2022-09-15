@@ -12,6 +12,12 @@ class PostController extends Controller
     {
         $posts = Post::paginate(6);
 
+        foreach ($posts as $post) {
+            if ($post->cover) {
+                $post->cover = asset('storage/' . $post->cover);
+            }
+        };
+
         $data = [
             'success' => true,
             'results' => $posts
@@ -27,6 +33,8 @@ class PostController extends Controller
         // richiamando i nomi delle funzioni presenti nei relativi model
        $post = Post::where('slug', '=', $slug)->with(['tags', 'category'])->first();
        
+       $post->cover = asset('storage/' . $post->cover);
+
         // SE il risultato della query contenuto in $post non sarà inesistente/null, passiamo 'results' e 'success' come true
         // ALTRIMENTI 'results' non verrà tornato e 'success' tornerà false
        if ($post) {
@@ -39,8 +47,6 @@ class PostController extends Controller
                 'success' => false
             ];
        }
-       
-       
 
        return response()->json($data);
     }

@@ -28,6 +28,9 @@
                 <h5 v-else><strong>Categoria: </strong>Nessuna</h5>
             </div>
 
+            <!-- Image -->
+            <img v-if="post.cover" :src="post.cover" class="card-img-top mb-4" :alt="post.title">
+
             <!-- Content -->
             <p class="post-content">{{ post.content }}</p>
         </div>
