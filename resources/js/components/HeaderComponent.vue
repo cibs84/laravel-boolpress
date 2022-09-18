@@ -1,8 +1,10 @@
 <template>
     <header>
         <nav class="container">
-            <router-link :to="{name: menuLink.routeName}" 
-            v-for="(menuLink, index) in menuLinks" :key="index">
+            <router-link  v-for="(menuLink, index) in menuLinks"
+                          :to="{name: menuLink.routeName}"
+                          :key="index"
+            >
                 {{menuLink.linkText}}
             </router-link>
             <a href="/admin">Admin privata</a>
@@ -27,6 +29,10 @@ export default {
                 {
                     routeName: 'blog',
                     linkText: 'Blog'
+                },
+                {
+                    routeName: 'contact',
+                    linkText: 'Contatti'
                 }
             ]
         }

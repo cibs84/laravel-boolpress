@@ -8,9 +8,11 @@ use PhpParser\Node\Stmt\Return_;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 use App\Category;
+use App\Mail\NewPostAdminEmail;
 use App\Post;
 use App\Tag;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 class PostController extends Controller
 {
@@ -87,6 +89,9 @@ class PostController extends Controller
         if (isset($form_data['tags'])) {
             $new_post->tags()->sync($form_data['tags']);
         }
+
+        // Invio all'Amministratore un'email di notifica della creazione del nuovo post
+        Mail::to('admin@email.it')->send(new NewPostAdminEmail($new_post));
 
         return redirect()->route('admin.posts.show', ['post' => $new_post->id, 'post_created' => true]);
     }
@@ -233,7 +238,7 @@ class PostController extends Controller
         return [
                 'title' => 'required|string|max:255',
                 'content' => 'required|string|max:50000',
-                'post-cover' => 'image|mimes:jpeg,jpg,png,bmp,gif,svg,webp|max:1024|nullable',
+                'post-cover' => 'file|mimes:jpeg,jpg,png,bmp,gif,svg,webp|max:3024|nullable',
                 // controlla che ci sia valore null oppure che esista una categoria 
                 // nel campo id della tabella categories evitando che dall'inspector si possano iniare valori
                 // non presenti nella colonna id del database

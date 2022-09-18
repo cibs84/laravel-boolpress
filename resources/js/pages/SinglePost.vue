@@ -71,7 +71,7 @@ export default {
     mounted() {
         // Impostato un ritardo nella chiamata per testare il v-if-else 
         // con la visualizzazione dello spinner di caricamento
-        setTimeout(this.getSinglePost, 3000);
+        setTimeout(this.getSinglePost, 500);
     }
 }
 </script>

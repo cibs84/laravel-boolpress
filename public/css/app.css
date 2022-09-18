@@ -9341,6 +9341,12 @@ h3 {
   margin-right: 1rem;
 }
 
+.image-loaded {
+  font-size: 1rem;
+  margin: 2rem 0 1rem;
+  font-weight: 700;
+}
+
 .table td, .table th {
   vertical-align: middle;
 }

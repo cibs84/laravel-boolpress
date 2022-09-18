@@ -35,7 +35,7 @@
 
     {{-- Image --}}
     @if ($post->cover)
-        <img src="{{ asset('storage/' . $post->cover) }}" class="w-50" alt="">  
+        <img src="{{ asset('storage/' . $post->cover) }}" class="w-50 mb-4" :alt="$post->title">  
     @endif
 
     {{-- Content --}}
