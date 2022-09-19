@@ -107,16 +107,8 @@ class PostController extends Controller
         $post = Post::findOrFail($id);
 
         // Creo il messaggio relativo a quanti giorni fa è stato creato/aggiornato il post
-        $now = Carbon::now();
-        $diff_days = $post->created_at->diffInDays($now);
-   
-        if ($diff_days == 0) {
-            $how_long_ago = 'Oggi';
-        } else if ($diff_days == 1) {
-            $how_long_ago = 'Ieri';
-        } else {
-            $how_long_ago = $diff_days . 'giorni fa';
-        }
+        $how_long_ago_created = $this->getHowLongAgo($post->created_at);
+        $how_long_ago_updated = $this->getHowLongAgo($post->updated_at);
         
         // Prendo i parametri che vengono passati da store quando viene creato un nuovo fumetto e da update quando viene modificato.
         // Assegno null come valore SE il parametro non viene passato e quindi non è settato, altrimenti visualizziamo un errore relativo alla/e variabile/i non definite
@@ -129,7 +121,8 @@ class PostController extends Controller
             'post' => $post,
             'post_created' => $post_created,
             'post_updated' => $post_updated,
-            'how_long_ago' => $how_long_ago
+            'how_long_ago_created' => $how_long_ago_created,
+            'how_long_ago_updated' => $how_long_ago_updated,
         ];
 
         return view('admin.posts.show', $data);
@@ -169,7 +162,7 @@ class PostController extends Controller
         $form_data = $request->all();
 
         if (isset($form_data['post-cover'])) {
-            // Carica il file nella cartella 'uploads' presente in storage/app/public
+            // Carica l'immagine nella cartella storage/app/public/uploads
             // e torna il path dell'immagine che andrà salvato nel db
             $img_path = Storage::put('uploads', $form_data['post-cover']);
             $form_data['cover'] = $img_path;
@@ -270,5 +263,24 @@ class PostController extends Controller
         }
 
         return $slug_to_save;
+    }
+
+    // Crea un messaggio relativo a quanti giorni sono passati 
+    // dalla data odierna a quella che gli si passa tramite argomento
+    protected function getHowLongAgo($date) {
+        // Data odierna
+        $now = Carbon::now();
+        
+        // quanti giorni sono passati da oggi alla data che abbiamo passato passata
+        $diff_days = $date->diffInDays($now);
+        
+        // Ritorna un messaggio sulla base di $diff_days
+        if ($diff_days == 0) {
+            return 'Today';
+        } else if ($diff_days == 1) {
+            return 'Yesterday';
+        } else {
+            return $diff_days . ' days ago';
+        }
     }
 }

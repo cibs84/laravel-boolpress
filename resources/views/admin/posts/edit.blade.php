@@ -54,10 +54,10 @@
             {{-- Image --}}
             <div class="mb-4">
                 <label for="post-cover" class="form-label">Immagine</label>
-                <input class="form-control" type="file" name="post-cover[]" id="post-cover">
+                <input class="form-control" type="file" name="post-cover" id="post-cover">
                 @if ($post->cover)
                     <div class="image-loaded">Immagine attualmente caricata</div>
-                    <img src="{{ asset('storage/' . $post->cover) }}" class="w-20" alt=""> 
+                    <img src="{{ asset('storage/' . $post->cover) }}" class="w-50" alt=""> 
                 @endif
 
                 @error('post-cover')
