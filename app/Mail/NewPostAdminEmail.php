@@ -36,7 +36,7 @@ class NewPostAdminEmail extends Mailable
             "new_post" => $this->new_post
         ];
 
-        // Invio alla view contenente l'email, il nuovo post creato dall'utente
+        // Invio il nuovo post alla view contenente il markup dell'email
         return $this->view('emails.new_post_admin_email', $data);
     }
 }

@@ -2055,13 +2055,17 @@ __webpack_require__.r(__webpack_exports__);
       userName: '',
       userEmail: '',
       userMessage: '',
-      success: false
+      success: false,
+      errors: {},
+      sending: false
     };
   },
   methods: {
     sendMessage: function sendMessage() {
       var _this = this;
 
+      this.sending = true;
+      this.success = false;
       axios.post('/api/leads', {
         name: this.userName,
         email: this.userEmail,
@@ -2072,7 +2076,12 @@ __webpack_require__.r(__webpack_exports__);
           _this.userName = '';
           _this.userEmail = '';
           _this.userMessage = '';
+          _this.errors = {};
+        } else {
+          _this.errors = response.data.errors;
         }
+
+        _this.sending = false;
       });
     }
   }
@@ -2475,7 +2484,15 @@ var render = function render() {
         _vm.userName = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.name ? _c("div", _vm._l(_vm.errors.name, function (error, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "alert alert-danger",
+      attrs: {
+        role: "alert"
+      }
+    }, [_vm._v("\n                    " + _vm._s(error) + "\n                ")]);
+  }), 0) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -2503,7 +2520,15 @@ var render = function render() {
         _vm.userEmail = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("div", {
+  }), _vm._v(" "), _vm.errors.email ? _c("div", _vm._l(_vm.errors.email, function (error, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "alert alert-danger",
+      attrs: {
+        role: "alert"
+      }
+    }, [_vm._v("\n                    " + _vm._s(error) + "\n                ")]);
+  }), 0) : _vm._e()]), _vm._v(" "), _c("div", {
     staticClass: "mb-3"
   }, [_c("label", {
     staticClass: "form-label",
@@ -2531,11 +2556,20 @@ var render = function render() {
         _vm.userMessage = $event.target.value;
       }
     }
-  })]), _vm._v(" "), _c("input", {
+  }), _vm._v(" "), _vm.errors.message ? _c("div", _vm._l(_vm.errors.message, function (error, index) {
+    return _c("div", {
+      key: index,
+      staticClass: "alert alert-danger",
+      attrs: {
+        role: "alert"
+      }
+    }, [_vm._v("\n                    " + _vm._s(error) + "\n                ")]);
+  }), 0) : _vm._e()]), _vm._v(" "), _c("input", {
     staticClass: "btn btn-primary",
     attrs: {
       type: "submit",
-      value: "Invia"
+      value: "Invia",
+      disabled: _vm.sending
     }
   })])]);
 };
